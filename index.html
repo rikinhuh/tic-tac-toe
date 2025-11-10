@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Tic‑Tac‑Toe — Futuristic (Offline)</title>
+  <style>
+    :root {
+      --bg: radial-gradient(circle at center, #0a0f1e 0%, #030712 100%);
+      --card: rgba(255, 255, 255, 0.05);
+      --accent: #00ffe7;
+      --accent-glow: 0 0 12px #00ffe7aa, 0 0 24px #00ffe788;
+      --text: #e6f0ff;
+      --muted: #6b7280;
+      --win: #00ff9d;
+    }
+    * {
+      box-sizing: border-box;
+      font-family: 'Orbitron', sans-serif;
+    }
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&display=swap');
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text);
+      overflow: hidden;
+    }
+
+    .wrap {
+      width: 95%;
+      max-width: 540px;
+      background: linear-gradient(135deg, rgba(0, 255, 231, 0.05), rgba(255, 255, 255, 0.03));
+      border: 1px solid rgba(0, 255, 231, 0.3);
+      border-radius: 20px;
+      padding: 20px;
+      box-shadow: 0 0 40px rgba(0, 255, 231, 0.15);
+      backdrop-filter: blur(10px);
+    }
+
+    h1 {
+      font-size: 22px;
+      text-align: center;
+      color: var(--accent);
+      text-shadow: var(--accent-glow);
+      letter-spacing: 1px;
+      margin-bottom: 12px;
+    }
+
+    .controls, .scoreboard, .footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    input.player {
+      background: transparent;
+      border: 1px solid rgba(0, 255, 231, 0.4);
+      border-radius: 8px;
+      padding: 8px 10px;
+      color: var(--text);
+      font-size: 14px;
+      width: 48%;
+      text-align: center;
+    }
+
+    button {
+      background: transparent;
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      border-radius: 8px;
+      padding: 8px 12px;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: all 0.2s ease;
+    }
+    button:hover {
+      background: var(--accent);
+      color: #000;
+      box-shadow: var(--accent-glow);
+    }
+
+    .scoreboard {
+      margin: 15px 0;
+      text-align: center;
+    }
+
+    .pill {
+      flex: 1;
+      background: rgba(0, 255, 231, 0.05);
+      border-radius: 10px;
+      padding: 10px;
+      border: 1px solid rgba(0, 255, 231, 0.2);
+      box-shadow: inset 0 0 10px rgba(0, 255, 231, 0.1);
+    }
+
+    .pill b {
+      display: block;
+      font-size: 22px;
+      color: var(--accent);
+      text-shadow: var(--accent-glow);
+    }
+
+    .board {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      background: rgba(0, 255, 231, 0.05);
+      padding: 10px;
+      border-radius: 12px;
+      box-shadow: inset 0 0 20px rgba(0, 255, 231, 0.1);
+    }
+
+    .cell {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(0, 255, 231, 0.3);
+      border-radius: 10px;
+      aspect-ratio: 1 / 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 48px;
+      color: var(--text);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .cell:hover {
+      background: rgba(0, 255, 231, 0.1);
+      box-shadow: 0 0 15px rgba(0, 255, 231, 0.2);
+      transform: scale(1.05);
+    }
+
+    .cell.x { color: #00bfff; text-shadow: 0 0 10px #00bfffaa; }
+    .cell.o { color: #ff007f; text-shadow: 0 0 10px #ff007faa; }
+    .cell.win { background: rgba(0, 255, 157, 0.15); box-shadow: 0 0 25px rgba(0, 255, 157, 0.4); }
+
+    #status {
+      text-align: center;
+      font-size: 14px;
+      color: var(--muted);
+      margin-top: 10px;
+    }
+
+    @keyframes neonPulse {
+      0%,100% { box-shadow: 0 0 5px #00ffe744, 0 0 10px #00ffe755; }
+      50% { box-shadow: 0 0 20px #00ffe7aa, 0 0 30px #00ffe788; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Tic‑Tac‑Toe 2080</h1>
+    <div class="controls">
+      <input id="playerX" class="player" placeholder="Player X" />
+      <input id="playerO" class="player" placeholder="Player O" />
+      <button id="saveNames">Save</button>
+      <button id="swap">Swap</button>
+    </div>
+    <div class="scoreboard">
+      <div class="pill">
+        <div>X</div>
+        <b id="scoreX">0</b>
+        <div id="nameX">Player X</div>
+      </div>
+      <div class="pill">
+        <div>O</div>
+        <b id="scoreO">0</b>
+        <div id="nameO">Player O</div>
+      </div>
+    </div>
+    <div class="board" id="board"></div>
+    <div id="status">Enter names and start playing!</div>
+    <div class="footer">
+      <button id="next">Next</button>
+      <button id="resetScores">Reset</button>
+    </div>
+  </div>
+
+  <script>
+    const LS_KEYS = {NAMES:'ttt_names_v2', SCORES:'ttt_scores_v2'};
+    let boardState = Array(9).fill('');
+    let turn = 'X';
+    let running = true;
+
+    const boardEl = document.getElementById('board');
+    const status = document.getElementById('status');
+    const scoreX = document.getElementById('scoreX');
+    const scoreO = document.getElementById('scoreO');
+    const nameX = document.getElementById('nameX');
+    const nameO = document.getElementById('nameO');
+    const playerXInput = document.getElementById('playerX');
+    const playerOInput = document.getElementById('playerO');
+    const saveNamesBtn = document.getElementById('saveNames');
+    const resetScoresBtn = document.getElementById('resetScores');
+    const nextBtn = document.getElementById('next');
+    const swapBtn = document.getElementById('swap');
+
+    function load(){
+      const n = localStorage.getItem(LS_KEYS.NAMES);
+      if (n) {
+        const {X,O} = JSON.parse(n);
+        nameX.textContent = X; nameO.textContent = O;
+        playerXInput.value = X; playerOInput.value = O;
+      }
+      const s = localStorage.getItem(LS_KEYS.SCORES);
+      if (s){
+        const {X,O} = JSON.parse(s);
+        scoreX.textContent = X; scoreO.textContent = O;
+      }
+    }
+
+    function saveNames(){
+      const X = playerXInput.value.trim()||'Player X';
+      const O = playerOInput.value.trim()||'Player O';
+      localStorage.setItem(LS_KEYS.NAMES, JSON.stringify({X,O}));
+      nameX.textContent = X; nameO.textContent = O;
+      status.textContent = 'Names saved!';
+    }
+
+    function saveScores(){
+      const s = {X:Number(scoreX.textContent),O:Number(scoreO.textContent)};
+      localStorage.setItem(LS_KEYS.SCORES, JSON.stringify(s));
+    }
+
+    function renderBoard(){
+      boardEl.innerHTML = '';
+      for (let i=0;i<9;i++){
+        const c = document.createElement('div');
+        c.className = 'cell';
+        if (boardState[i]){
+          c.textContent = boardState[i];
+          c.classList.add(boardState[i].toLowerCase());
+        }
+        c.addEventListener('click', ()=>onCellClick(i));
+        boardEl.appendChild(c);
+      }
+    }
+
+    function onCellClick(i){
+      if (!running || boardState[i]) return;
+      boardState[i] = turn;
+      renderBoard();
+      const res = checkWinner();
+      if (res){
+        running = false;
+        if (res.winner){
+          res.line.forEach(idx=>boardEl.children[idx].classList.add('win'));
+          status.textContent = `${res.winner} wins!`;
+          if (res.winner==='X') scoreX.textContent = +scoreX.textContent+1; else scoreO.textContent = +scoreO.textContent+1;
+          saveScores();
+        } else {
+          status.textContent = 'Draw!';
+        }
+        return;
+      }
+      turn = turn==='X'?'O':'X';
+      status.textContent = `Turn: ${turn}`;
+    }
+
+    function checkWinner(){
+      const wins=[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+      for(const line of wins){
+        const [a,b,c]=line;
+        if(boardState[a]&&boardState[a]===boardState[b]&&boardState[a]===boardState[c])return{winner:boardState[a],line};
+      }
+      if(boardState.every(Boolean))return{winner:null};
+      return null;
+    }
+
+    function resetBoard(){
+      boardState = Array(9).fill('');
+      running = true;
+      turn='X';
+      renderBoard();
+      status.textContent = 'New game!';
+    }
+
+    saveNamesBtn.onclick = saveNames;
+    resetScoresBtn.onclick = ()=>{scoreX.textContent='0';scoreO.textContent='0';saveScores();status.textContent='Scores reset!';};
+    nextBtn.onclick = resetBoard;
+    swapBtn.onclick = ()=>{
+      [playerXInput.value,playerOInput.value] = [playerOInput.value,playerXInput.value];
+      saveNames();
+    };
+
+    load();
+    renderBoard();
+  </script>
+</body>
+</html>
