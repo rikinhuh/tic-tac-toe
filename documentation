@@ -1,0 +1,211 @@
+Project Documentation: Tic-Tac-Toe Game
+
+
+
+
+Certificate
+
+
+This is to certify that Mr. Rikin Rikhi, a student of Bachelor of Computer Applications (BCA), has successfully completed the project titled
+ “Futuristic Tic-Tac-Toe Game” under the guidance of the faculty of [Your College Name] as part of the academic requirements of the BCA program for the year 2025.
+Signature of Guide: ___________________
+ Head of Department: ___________________
+ Date: ___________________
+
+
+
+
+Acknowledgement
+
+
+I would like to express my sincere gratitude to my project guide [Teacher’s Name] for their valuable guidance and encouragement throughout this project.
+ I am also thankful to all the faculty members of the Department of Computer Applications, and my friends for their continuous support and cooperation.
+ Finally, I express heartfelt thanks to my parents for their motivation and blessings.
+— Rikin Rikhi
+
+
+
+
+
+
+Abstract
+
+
+
+This project, Futuristic Tic-Tac-Toe Game, is a web-based two-player interactive game built using HTML, CSS, and JavaScript.
+ The project aims to recreate the classic Tic-Tac-Toe game with a modern, futuristic neon-themed user interface.
+ It allows two players to input names, play alternately, track their scores, and store data locally using browser LocalStorage, ensuring it works both offline and online.
+ The project is simple, responsive, and ideal for understanding the fundamentals of frontend web development and user interaction design.
+
+
+
+
+
+
+
+Introduction
+
+
+
+Tic-Tac-Toe is a simple yet popular game that helps in understanding logical thinking and strategic gameplay.
+ This project enhances the traditional game by providing a futuristic digital experience with neon effects and persistent scoring features.
+ It is designed as a browser-based application, fully functional without an internet connection, and easily deployable using Netlify for online access.
+Objectives
+
+To design an interactive two-player Tic-Tac-Toe game.
+
+
+To implement score tracking and name customization.
+
+
+To provide offline functionality using LocalStorage.
+
+
+To create a modern futuristic user interface using HTML, CSS, and JavaScript.
+
+
+To host the project on Netlify for public accessibility.
+
+Existing System
+
+The existing Tic-Tac-Toe games available online are often basic in design or limited to single-player modes.
+ Many do not provide persistent score tracking, or offline accessibility, and lack an appealing futuristic look.
+ Our system enhances the gameplay experience with modern UI and additional features.
+
+Hardware Requirements
+
+
+Component
+Minimum Requirement
+Processor
+Intel Core i3 or above
+RAM
+2 GB or more
+Storage
+100 MB free space
+Display
+Any modern web browser compatible device
+Network
+Optional (for Netlify hosting)
+
+
+
+Software Requirements
+
+Component
+Specification
+Operating System
+Windows / macOS / Linux / Android
+IDE
+Visual Studio Code
+Browser
+Google Chrome / Firefox / Edge
+Deployment Platform
+Netlify
+Version Control
+Git & GitHub
+
+
+Tools and Technologies Used
+
+
+Category
+Tools/Technologies
+Frontend
+HTML5, CSS3, JavaScript
+IDE
+Visual Studio Code
+Version Control
+Git, GitHub
+Hosting
+Netlify
+
+
+
+System Architecture
+
+
++--------------------------+
+|      User Interface      |
+| (HTML + CSS + JS)        |
++------------+-------------+
+             |
+             v
++--------------------------+
+|     Game Logic Layer     |
+| (JavaScript Functions)   |
++------------+-------------+
+             |
+             v
++--------------------------+
+|   Data Storage Layer     |
+| (LocalStorage Browser DB)|
++--------------------------+
+
+
+
+Implementation
+
+
+The game is built using HTML for structure, CSS for futuristic neon design, and JavaScript for logic and interactivity.
+
+
+Each player alternates turns until one wins or the game draws.
+
+
+Scores are automatically updated and stored persistently in localStorage.
+
+
+The design is fully responsive for mobile and desktop.
+
+
+The project was deployed on Netlify for easy access.
+
+Testing
+
+Test Case
+Description
+Expected Result
+Status
+Player Name Input
+Enter names and save
+Names displayed correctly
+✅
+Game Play
+Alternate turns between X and O
+Works correctly
+✅
+Win Detection
+Three same marks in line
+Highlights winning cells
+✅
+Score Update
+After each win
+Correct player’s score increments
+✅
+Reset Scores
+Click Reset
+Scores reset to zero
+✅
+LocalStorage Persistence
+Reload page
+Scores remain saved
+✅
+
+
+Result
+The system successfully provides:
+Two-player gameplay
+Persistent score tracking
+Offline functionality
+Modern, futuristic neon-themed interface
+Compatibility across devices and browsers
+
+
+
+Conclusion
+
+
+The Futuristic Tic-Tac-Toe Game project successfully demonstrates how HTML, CSS, and JavaScript can be combined to create a fully functional, interactive, and visually appealing web-based application.
+ It offers an engaging user experience with offline capability and a futuristic design suitable for academic demonstration and real-world learning.
+
